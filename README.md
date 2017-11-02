@@ -15,6 +15,6 @@ Till now, the shortcuts are:<br>
 If you want to write one of these special characters, you have to write a '/' before it
 <hr>
 Future:<br>
-* A config-file is planned, where a favourite texteditor can be set etc.
-* shortcuts for a link
-* better integration into the blog
+* A config-file is planned, where a favourite texteditor can be set etc.<br>
+* shortcuts for a link<br>
+* better integration into the blog<br>
