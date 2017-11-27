@@ -11,10 +11,13 @@ Till now, the shortcuts are:<br>
 * '~' = special design for the date<br>
 * '*' = &bullet;<br>
 * '//' = /<br>
+* '§' = before and after the url<br>
+* '%' = the text, which is displayed instead of the url<br>
+--> f.e.: §https:////duckduckgo.com§%dckdckg%
 <br><br>
 If you want to write one of these special characters, you have to write a '/' before it
 <hr>
 Future:<br>
 * A config-file is planned, where a favourite texteditor can be set etc.<br>
-* shortcuts for a link<br>
+* <s>shortcuts for a link</s><br>
 * better integration into the blog<br>
