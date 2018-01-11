@@ -11,8 +11,8 @@ Till now, the shortcuts are:<br>
 * '/d' = special design for the date<br>
 * '/*' = &bullet;<br>
 * '//' = /<br>
-* 'a' = before and after the url<br>
-* 'e' = after the text, which is displayed instead of the url<br>
+* '/a' = before and after the url<br>
+* '/e' = after the text, which is displayed instead of the url<br>
 --> f.e.: /ahttps:////duckduckgo.com/aduckduckgoo/e
 <br><br>
 If you want to write one of these special characters, you have to write a '/' before it
