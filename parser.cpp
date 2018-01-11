@@ -30,11 +30,11 @@ string Parser::insertString(string text, string titel, string date, const char* 
     string final_text = text_upper +
     					"\n<h4 id=\"date\">" + 
     					date + 
-    					"</h4><h3><a class=\"titel\" href=\"http://psittacus.bplaced.net/posts/" + 
+    					"</h4><h3><a class=\"post\" href=\"http://psittacus.bplaced.net/posts/" + 
     					text + 
     					".html\">" + 
     					titel + 
-    					"</a><h3><br><hr><br>\n" + 
+    					"</a></h3><br><hr><br>\n" + 
     					text_lower;
 
 
@@ -45,7 +45,7 @@ string Parser::readFile(const char* path) {
     ifstream ifs(path);
     string line_old;
     string line_new;
-    string titel;
+    string titel = "";
     bool h3 = false, b = false, date = false, slash = false, afterDate = false, link = false;
     if(ifs.is_open()) {
 	while(getline(ifs, line_old)) {
@@ -59,18 +59,16 @@ string Parser::readFile(const char* path) {
 					line_new += "\">";				// end first part of a
 					link = false;
 				}
-			}
-			if(letter == 'e') {              	
+			} else if(letter == 'e') {              	
    				line_new += "</a>";					//end a
-		    }
-		    if(letter == 'b') {						//b = bigger text
+		    } else if(letter == 'b') {						//b = bigger text
 				if(!h3) {
 				    line_new += "<h3>";	    //h3
 				    h3 = true;
 				} else {
 				    line_new += "</h3>";    //end h3
 			    	h3 = false;
-			}
+				}
 		    } else if(letter == 'B') { 				//B = Bold text
 				if(!b) {	    //start bold text
 			   		line_new += "<b>";
@@ -90,9 +88,6 @@ string Parser::readFile(const char* path) {
 				}   
 		    } else if(letter == '*') {
 				line_new += "&bullet;";	    //list
-		    } else if(h3) {
-		        titel += letter;	//titel
-		        line_new += letter;	    //whole document
 		    } else if(letter == '/') {
 		    	line_new += "/"; 		//if slash appears twice, there is only written one slash
 		    } else {
@@ -100,6 +95,10 @@ string Parser::readFile(const char* path) {
 		    }
 		} else {
 			line_new += letter;
+		    if(h3 && letter != '/') {
+		        titel += letter;	//titel
+		        //line_new += letter;	    //whole document
+		    }
 		}
 		slash = false;
 	    if(letter == '/') {
