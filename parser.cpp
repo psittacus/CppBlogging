@@ -27,7 +27,17 @@ string Parser::insertString(string text, string titel, string date, const char* 
     }
     ifs.close();
     
-    string final_text = text_upper + "\n<h4 id=\"date\">"  + date + "</h4><h3><a class=\"titel\" href=\"http://psittacus.bplaced.net/posts/" + text + ".html\">" + titel + "</a><h3><br><hr><br>\n" + text_lower;
+    string final_text = text_upper +
+    					"\n<h4 id=\"date\">" + 
+    					date + 
+    					"</h4><h3><a class=\"titel\" href=\"http://psittacus.bplaced.net/posts/" + 
+    					text + 
+    					".html\">" + 
+    					titel + 
+    					"</a><h3><br><hr><br>\n" + 
+    					text_lower;
+
+
     return final_text;
 }
 
@@ -36,63 +46,71 @@ string Parser::readFile(const char* path) {
     string line_old;
     string line_new;
     string titel;
-    bool h3 = false, b = false, date = false, slash = false, afterDate = false;
+    bool h3 = false, b = false, date = false, slash = false, afterDate = false, link = false;
     if(ifs.is_open()) {
 	while(getline(ifs, line_old)) {
 	    for(char letter : line_old) {
-		if(!slash) {
-		    if(letter == '#') {
-			if(!h3) {
-			    line_new += "<h3>";	    //bigger text
-			    h3 = true;
-			} else {
-			    line_new += "</h3>";    //end bigger text
-			    h3 = false;
+		if(slash) {
+			if(letter == 'a') {						//a = href
+				if(!link) {
+					line_new += "<a href=\"";
+					link = true;
+				} else {
+					line_new += "\">";				// end first part of a
+					link = false;
+				}
 			}
-		    } else if(letter == '_') {
-			if(!b) {	    //start bold text
-			    line_new += "<b>";
-			    b = true;
-			} else {
-			    line_new += "</b>";	//end bold text
-			    b = false;
+			if(letter == 'e') {              	
+   				line_new += "</a>";					//end a
+		    }
+		    if(letter == 'b') {						//b = bigger text
+				if(!h3) {
+				    line_new += "<h3>";	    //h3
+				    h3 = true;
+				} else {
+				    line_new += "</h3>";    //end h3
+			    	h3 = false;
 			}
-		    } else if(letter == '~') {
-			if(!date) {
-			    line_new += "<h4 id=\"date\">";  //date
-			    date = true;
-			} else {
-			    line_new += "</h4>";
-			    date = false;
-			    afterDate = true;
-			}   
+		    } else if(letter == 'B') { 				//B = Bold text
+				if(!b) {	    //start bold text
+			   		line_new += "<b>";
+			   	 	b = true;
+				} else {
+			    	line_new += "</b>";	//end bold text
+			    	b = false;
+				}
+		    } else if(letter == 'd') {				//d = date
+				if(!date) {
+				    line_new += "<h4 id=\"date\">";  //date
+			   		date = true;
+				} else {
+			   		line_new += "</h4>";
+			    	date = false;
+				    afterDate = true;
+				}   
 		    } else if(letter == '*') {
-			line_new += "&bullet;";	    //list
-		    } else if(letter == '/') {
-			slash = true;
+				line_new += "&bullet;";	    //list
 		    } else if(h3) {
 		        titel += letter;	//titel
 		        line_new += letter;	    //whole document
-		    } 
-		    else {
-			line_new += letter;
+		    } else if(letter == '/') {
+		    	line_new += "/"; 		//if slash appears twice, there is only written one slash
+		    } else {
+				line_new += letter;
 		    }
 		} else {
-		    if(letter == '/') {
-			line_new += "/";	    //double slash means one slash in the html file
-			slash = false;
-		    } else {
 			line_new += letter;
-			slash = false;
-		    }
+		}
+		slash = false;
+	    if(letter == '/') {
+	    	slash = true;
+	    }
 		}
 	    }
 	    if(!afterDate) {
 	       line_new += "\x3c\x62r\x3e\n";
 	    }
 	    afterDate = false;
-	    slash = false;			//slash does not count over a line
-	}
     }
     ifs.close();
     time_t now = time(0);
@@ -123,7 +141,7 @@ In the following lines the post file is created. In it the post is written down.
     string niceDate = day + "/" + month + "/" + year; //for inserting into the index.html file
     string fullDate = year + month + day + hour; //full date
     ofstream ofs("posts/" + fullDate + ".html"); //file
-    string complete_text = "<link href=\"design.css\" type=\"text/css\" rel=\"stylesheet\">\n" + line_new;
+    string complete_text = "<!DOCTYPE html><html><meta charset=\"utf-8\"><head><title>Blogpost</title><link href=\"design.css\" type=\"text/css\" rel=\"stylesheet\"></head><body><h1 class=\"title\">psittacus programming Blog</h1><div class=\"content\">\n" + line_new + "\n</div><div class=\"back\"><a href=\"http://psittacus.bplaced.net/\">Home sweet home</a></div></body></html>";
     ofs << complete_text;
     ofs.close();
     string pathToIndex = "index.html";
