@@ -6,14 +6,14 @@ updates on my blog: <a href="http://psittacus.bplaced.net">psittacus.bplaced.net
 <b>Usage</b><br>
 The main idea of clbt is writing fantastic blog posts in a short time. In order to jump over the whole design thing, you use shortcuts/keywords. <br>
 Till now, the shortcuts are:<br>
-* '#' = h3 or /h3<br>
-* '_' = b or /b<br>
-* '~' = special design for the date<br>
-* '*' = &bullet;<br>
+* '/b' = h3 or /h3<br>
+* '/B' = b or /b<br>
+* '/d' = special design for the date<br>
+* '/*' = &bullet;<br>
 * '//' = /<br>
-* '§' = before and after the url<br>
-* '%' = the text, which is displayed instead of the url<br>
---> f.e.: §https:////duckduckgo.com§%dckdckg%
+* 'a' = before and after the url<br>
+* 'e' = after the text, which is displayed instead of the url<br>
+--> f.e.: /ahttps:////duckduckgo.com/aduckduckgoo/e
 <br><br>
 If you want to write one of these special characters, you have to write a '/' before it
 <hr>
