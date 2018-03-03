@@ -17,12 +17,12 @@ int main(int argc, char* argv[]) {
 	int choice = 0;
 	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n"
 	        "| clbt ver. 0.1              |\n"
-		"| 1) Write a post            |\n"
-		"| 2) Upload a post           |\n"
-		"| 3) Change design (in work) |\n"
+			"| 1) Write a post            |\n"
+			"| 2) Upload a post           |\n"
+			"| 3) Change design (in work) |\n"
 	        "| 4) Configure your settings |\n"
-		"| 5) Exit                    |\n"
-		"|____________________________|\n";
+			"| 5) Exit                    |\n"
+			"|____________________________|\n";
 	cin >> choice;
 	string path;
 	string order;
@@ -31,12 +31,12 @@ int main(int argc, char* argv[]) {
 		system("vim post.txt"); //later: config.texteditor();
 		break;
 	    case 2: {
-		cout << "Name of/Path to the file: ";
-		cin >> path;
-		order = parser.readFile(path.c_str()); //parses the file
-		string finalOrder = "python blog.py " + order; //the python files uploades the parsed content
-                system(finalOrder.c_str()); //command gets executed x_x
-		break;
+			cout << "Name of/Path to the file: ";
+			cin >> path;
+			order = parser.readFile(path.c_str()); 				//parses the file
+			string finalOrder = "python2.7 blog.py " + order; 	//the python files uploades the parsed content
+        	system(finalOrder.c_str()); 						//command gets executed x_x
+			break;
 		}
 	    case 3: 
 		cout << "Coming s(p)oon" << endl; //in work (theoretically)
